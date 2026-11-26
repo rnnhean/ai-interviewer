@@ -1,0 +1,417 @@
+:root {
+  --bg: #f5f6f8;
+  --panel: #ffffff;
+  --border: #e6e8ec;
+  --text: #1f2329;
+  --muted: #8a919f;
+  --accent: #4c6ef5;
+  --caption: #adb5bd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.page--setup .setup-card {
+  margin-bottom: 16px;
+}
+
+.option-desc {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.setup-error {
+  margin-bottom: 16px;
+}
+
+/*
+ * 面试页三列：左竖栏数字人 / 中间对话 / 右竖栏状态。
+ *
+ * 数字人原来是横在对话上方的一条 16:9 舞台，人像在宽条里只占中间一小列，
+ * 脸小到看不出嘴形。改成独立的竖栏后画面比例接近人像本身，
+ * 同样的舞台高度下脸能大一圈，口型才看得见。
+ */
+.interview-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) 320px;
+  gap: 16px;
+  height: 100vh;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.interview-main {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.interview-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* 数字人竖栏：撑满整列高度，人像按这个比例构图 */
+.stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  background: radial-gradient(circle at 50% 38%, #eef2ff 0%, #f7f9ff 58%, #ffffff 100%);
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+.human {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.human__viewport {
+  width: 100%;
+  height: 100%;
+}
+
+.human__viewport canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.human__hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.human__hint--error {
+  color: #c92a2a;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.human__meta {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+  pointer-events: none;
+}
+
+.human__name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.human__status {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.human__status--on {
+  color: var(--accent);
+}
+
+.side-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+/* 对话记录是回答和复盘的主要阅读区，吃掉舞台之外的剩余高度 */
+.transcript {
+  flex: 1 1 auto;
+  min-height: 260px;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bubble {
+  max-width: 88%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bubble--assistant {
+  align-self: flex-start;
+  background: #f1f3f7;
+}
+
+.bubble--user {
+  align-self: flex-end;
+  background: #e7edff;
+}
+
+.bubble__meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.bubble__tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: #ffe8cc;
+  color: #b35c00;
+  font-size: 11px;
+}
+
+.composer {
+  border-top: 1px solid var(--border);
+  padding: 12px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.composer__row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.mic-button {
+  flex: none;
+}
+
+.caption-box {
+  min-height: 88px;
+  border-radius: 10px;
+  background: #fafbfc;
+  border: 1px dashed var(--border);
+  padding: 10px 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.caption-box--live {
+  border-style: solid;
+  border-color: #b3c2ff;
+  color: var(--text);
+}
+
+.caption-partial {
+  color: var(--caption);
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 光环挂在 wrap 上：face 自己要做 scale，同一个元素上动画和 transform 会打架 */
+.avatar__face-wrap {
+  --level: 0;
+  position: relative;
+  flex: none;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  transition: box-shadow 0.12s linear;
+}
+
+.avatar__face {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #eef2ff;
+  transition: transform 0.1s ease-out;
+  transform: scale(calc(1 + var(--level) * 0.05));
+}
+
+/* DiceBear 生成的 svg 自带 width/height 属性，要显式铺满 */
+.avatar__face > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * 嘴：闭嘴时纵向压成一条线（和原来的微笑弧重合），张嘴时按实时音量拉伸。
+ * transform-box: fill-box 让缩放围绕嘴自身包围盒的中心，而不是 SVG 原点。
+ */
+.mouth-open {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(calc(1 - var(--level) * 0.08), calc(0.05 + var(--level) * 0.95));
+  opacity: min(1, calc(var(--level) * 8));
+  transition: transform 0.045s linear, opacity 0.045s linear;
+}
+
+/* 张嘴时原来的微笑弧淡出，避免两条嘴叠在一起 */
+.mouth-line {
+  opacity: max(0, calc(1 - var(--level) * 4));
+}
+
+/* 拿不到音量（浏览器不支持 AnalyserNode 等）时，用固定节奏开合，别让脸僵住 */
+.avatar__face-wrap--silent .mouth-open {
+  animation: mouth-talk 0.34s ease-in-out infinite alternate;
+}
+
+@keyframes mouth-talk {
+  from {
+    transform: scale(1, 0.18);
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(0.94, 0.8);
+    opacity: 1;
+  }
+}
+
+.avatar__meta {
+  min-width: 0;
+  text-align: center;
+}
+
+.avatar__name {
+  font-weight: 600;
+}
+
+.avatar__status {
+  font-size: 13px;
+  color: #8a919f;
+  margin-top: 2px;
+}
+
+/* 说话时的音量条：只有 speaking 才渲染，靠 React 控制挂载 */
+.avatar__meter {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 24px;
+  align-self: center;
+}
+
+.avatar__bar {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: #4c6ef5;
+  opacity: 0.75;
+  transition: height 0.06s linear;
+}
+
+.avatar--speaking .avatar__face-wrap {
+  animation: avatar-breathe 1.2s ease-in-out infinite;
+  /* 说话时外圈按音量扩散：一圈细亮环 + 一层柔光晕，越响越亮越大 */
+  box-shadow:
+    0 0 0 calc(2px + var(--level) * 4px) rgba(76, 110, 245, calc(0.45 + var(--level) * 0.4)),
+    0 0 calc(var(--level) * 18px) rgba(76, 110, 245, calc(var(--level) * 0.5));
+}
+
+.avatar--speaking .avatar__status {
+  color: #4c6ef5;
+}
+
+@keyframes avatar-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* 报告页 */
+.report-section {
+  margin-bottom: 20px;
+}
+
+.total-score {
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.quote {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+  color: #495057;
+  margin: 6px 0;
+}
+
+.action-item {
+  display: flex;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.radar-box {
+  height: 320px;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .interview-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    height: auto;
+  }
+
+  /* 窄屏放弃竖栏，数字人回到对话上方的横条 */
+  .stage {
+    grid-column: 1 / -1;
+    height: 40vh;
+  }
+
+  .interview-main {
+    min-height: 60vh;
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "@ai-interviewer/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ai-interviewer/shared": "workspace:*",
+    "@ai-sdk/react": "4.0.166",
+    "@dicebear/collection": "9.4.2",
+    "@dicebear/core": "9.4.3",
+    "@met4citizen/talkinghead": "1.8.2",
+    "@ricky0123/vad-web": "0.0.31",
+    "ai": "7.0.162",
+    "antd": "6.7.0",
+    "echarts": "6.1.0",
+    "file-saver": "2.0.5",
+    "mse-audio-wrapper": "1.4.15",
+    "pinyin-pro": "^3.29.5",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-router-dom": "7.18.5",
+    "reconnecting-websocket": "4.4.0",
+    "three": "0.186.0",
+    "zustand": "5.0.16"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "@types/file-saver": "2.0.7",
+    "@types/node": "22.19.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "jsdom": "28.1.0",
+    "typescript": "5.9.3",
+    "vite": "8.3.5",
+    "vitest": "5.1.0"
+  }
+}
